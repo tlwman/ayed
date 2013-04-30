@@ -18,7 +18,7 @@ public class TestArbolGenerico {
 		fs.getHijos().elemento(2).agregarHijo( new ArbolGeneral<String>("usuario"));
 		fs.getHijos().elemento(2).getHijos().elemento(0).agregarHijo( new ArbolGeneral<String>("Documentos"));
 		
-		System.out.println("Altura: "+fs.altura());
+		System.out.println("Altura:  "+fs.altura());
 		System.out.println("Nivel de 'root': "+fs.nivel("root"));
 		System.out.println("Nivel de 'bin': "+fs.nivel("bin"));
 		System.out.println("Nivel de 'usuario': "+fs.nivel("usuario"));
