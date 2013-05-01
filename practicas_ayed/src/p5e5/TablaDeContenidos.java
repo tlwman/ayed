@@ -10,7 +10,7 @@ public class TablaDeContenidos {
 		this.raiz = toc;
 	}
 	
-	public ListaEnlazadaGenerica<String> temasSecciones(String capitulo){
+	public ListaEnlazadaGenerica<String> temasSecciones(){
 
 		ListaEnlazadaGenerica<String> retorno = new ListaEnlazadaGenerica<String>();
 		ListaEnlazadaGenerica<ArbolGeneral<Contenido>> hijos = this.raiz.getHijos();
