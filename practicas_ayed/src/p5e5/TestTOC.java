@@ -10,7 +10,7 @@ public class TestTOC {
 	public static ArbolGeneral<Contenido> gen(){
 		ArbolGeneral<Contenido> a = new ArbolGeneral<Contenido>(new Contenido("tapa", "java", 0, 'T'));
 		a.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("capitulo1", "constructores", 1, 'C')) );
-		a.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("capitulo3", "herencia", 12, 'C')) );
+		a.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("capitulo2", "herencia", 12, 'C')) );
 		a.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("capitulo3", "hilos", 21, 'C')) );
 		a.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("apendice", "interfaces", 37, 'A')) );
 		
@@ -18,6 +18,7 @@ public class TestTOC {
 		b.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("1.1", "java", 1, 'S')) );
 		b.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("1.2", "java", 4, 'S')) );
 		b.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("1.3", "java", 8, 'S')) );
+		b.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("1.4", "java", 9, 'S')) );
 
 		ArbolGeneral<Contenido> d = a.getHijos().elemento(2);
 		d.agregarHijo( new ArbolGeneral<Contenido>(new Contenido("3.1", "java", 21, 'S')) );

@@ -93,9 +93,9 @@ public class TablaDeContenidos {
 	public ListaEnlazadaGenerica<Contenido> capitulosMasAnchos(){
 			
 		ListaEnlazadaGenerica<Contenido> retorno = new ListaEnlazadaGenerica<Contenido>();
-		
+				
 		TablaDeContenidos.buscarMasAnchos(this.raiz, retorno);
-		
+		retorno.eliminar(0);
 		return retorno;
 	}
 	
