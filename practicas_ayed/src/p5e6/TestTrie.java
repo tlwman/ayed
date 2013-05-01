@@ -11,12 +11,12 @@ public class TestTrie {
 		String w;
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("palabra a agregar al TRIE: ");
+		System.out.print("Palabra a agregar al TRIE: ");
 		w = sc.next();
 		
 		while (! w.equals(".") ){
 			t.agregarPalabra(w);
-			System.out.print("palabra a agregar al TRIE: ");
+			System.out.print("Palabra a agregar al TRIE: ");
 			w = sc.next();	
 		}
 		
