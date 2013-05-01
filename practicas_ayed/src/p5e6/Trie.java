@@ -77,10 +77,15 @@ public class Trie {
 		
 		if (subarbol != null){
 			ListaEnlazadaGenerica<ArbolGeneral<Character>> hijos = subarbol.getHijos();
-			hijos.comenzar();
-			while (!hijos.fin()){
-				this.nuevaPalabra(comienzo, hijos.elemento(), retorno);
-				hijos.proximo();
+			if (!hijos.esVacia()){	
+				hijos.comenzar();
+				while (!hijos.fin()){
+					this.nuevaPalabra(comienzo, hijos.elemento(), retorno);
+					hijos.proximo();
+				}
+			}
+			else{
+				retorno.agregar(comienzo);
 			}
 		}
 		
