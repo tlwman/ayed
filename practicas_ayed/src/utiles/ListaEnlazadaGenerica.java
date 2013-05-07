@@ -85,18 +85,25 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 
 	@Override
 	public boolean agregar(T elem, int pos) {
-		if (pos>=0 && this.tamanio >= pos){
-			Nodo<T> n = seek(pos-1);
-			Nodo<T> m = new Nodo<T>(elem);
-			
-			m.setSiguiente(n.getSiguiente());
-			n.setSiguiente(m);
-			this.tamanio++;
-			return true;
+		Nodo<T> nuevo = new Nodo<T>(elem);
+		
+		if (pos <= this.tamanio){
+			if (pos == 0){
+				nuevo.setSiguiente( this.inicio );
+				this.inicio = nuevo;
+				tamanio++;
+				return true;
+			}
+			else if (pos > 0) {
+				Nodo<T> ant = seek(pos-1);
+				
+				nuevo.setSiguiente(ant.getSiguiente());
+				ant.setSiguiente(nuevo);
+				this.tamanio++;
+				return true;
+			}
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 
 	@Override

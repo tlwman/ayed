@@ -2,7 +2,7 @@ package utiles;
 
 public class ArbolGeneral<T> {
 
-	private NodoGeneral<T> raiz;
+	protected NodoGeneral<T> raiz;
 	
 	private ArbolGeneral(NodoGeneral<T> nodo){
 		this.raiz = nodo;
