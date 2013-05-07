@@ -58,7 +58,6 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 
 	@Override
 	public T elemento() {
-
 		return (T) ((this.actual == null)? null : this.actual.getDato());
 	}
 
@@ -71,7 +70,6 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 	@Override
 	public boolean agregar(T elem) {
 		if (this.inicio != null){
-			
 			Nodo<T> n = seek(this.tamanio-1);
 			n.setSiguiente(new Nodo<T>(elem));
 			this.tamanio++;
@@ -87,21 +85,18 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 	public boolean agregar(T elem, int pos) {
 		Nodo<T> nuevo = new Nodo<T>(elem);
 		
-		if (pos <= this.tamanio){
+		if (pos <= this.tamanio && pos >= 0){
 			if (pos == 0){
 				nuevo.setSiguiente( this.inicio );
 				this.inicio = nuevo;
-				tamanio++;
-				return true;
 			}
 			else if (pos > 0) {
 				Nodo<T> ant = seek(pos-1);
-				
 				nuevo.setSiguiente(ant.getSiguiente());
 				ant.setSiguiente(nuevo);
-				this.tamanio++;
-				return true;
 			}
+			this.tamanio++;
+			return true;
 		}
 		return false;
 	}
@@ -109,43 +104,40 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 	@Override
 	public boolean eliminar() {
 		if (this.actual != null){
+			
 			if (this.actual == this.inicio){
 				this.inicio = this.inicio.getSiguiente();
-				this.tamanio--;
-				return true;
 			}
 			else{
-				Nodo<T> n = this.inicio;
-				while (n.getSiguiente() != this.actual )
-					n = n.getSiguiente();
-				
-				if (n != null){
-					n.setSiguiente( n.getSiguiente().getSiguiente() );
-					this.tamanio--;
-					return true;
+				Nodo<T> ant = this.inicio;
+				while (ant.getSiguiente() != this.actual ){
+					ant = ant.getSiguiente();
 				}
+				ant.setSiguiente( this.actual.getSiguiente() );
 			}
+			this.tamanio--;
+			return true;
 		}
 		return false;
 	}
 
 	@Override
 	public boolean eliminar(int pos) {
-		if (pos == 0){
-			this.inicio = this.inicio.getSiguiente();
+		if (pos >= 0 && pos < this.tamanio ){
+			if (pos == 0){
+				this.inicio = this.inicio.getSiguiente();
+			}
+			else{
+				Nodo<T> n = seek(pos-1);
+				if (this.actual == n.getSiguiente()){
+					this.actual = null;
+				}
+				n.setSiguiente( n.getSiguiente().getSiguiente() );
+			}
 			this.tamanio--;
 			return true;
 		}
-		else{
-			Nodo<T> n = seek(pos-1);
-			if (n != null){
-				n.setSiguiente( n.getSiguiente().getSiguiente() );
-				this.tamanio--;
-				return true;
-			}
-			return false;
-		}
-		
+		return false;
 	}
 
 	@Override
