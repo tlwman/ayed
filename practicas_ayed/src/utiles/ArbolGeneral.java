@@ -1,6 +1,5 @@
 package utiles;
 
-
 public class ArbolGeneral<T> {
 
 	private NodoGeneral<T> raiz;
@@ -29,7 +28,7 @@ public class ArbolGeneral<T> {
 		this.raiz.setListaHijos(hijos);
 	}
 	
-	private NodoGeneral<T> getRaiz(){
+	protected NodoGeneral<T> getRaiz(){
 		return this.raiz;
 	}
 	
@@ -168,5 +167,32 @@ public class ArbolGeneral<T> {
 		return gradoMax;
 	}
 	
+	public double minCaudal( double litros){
+		double min = Double.MAX_VALUE;
+		
+		if (this.getDatoRaiz() != null){
+			
+			if ( this.getHijos().esVacia() ){
+				return litros;
+			}
+			else{
+				ListaEnlazadaGenerica<ArbolGeneral<T>> hijos = this.getHijos();
+				
+				double subCaudal = litros / hijos.tamanio(); 
+				double act;
+								
+				hijos.comenzar();
+				while( !hijos.fin() ){
+					act = hijos.elemento().minCaudal( subCaudal );
+	
+					if ( act < min){
+						min = act;
+					}				
+					hijos.proximo();
+				}
+			}
+		}
+		return min;
+	}
 	
 }
