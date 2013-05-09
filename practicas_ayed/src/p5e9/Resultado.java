@@ -55,6 +55,7 @@ public class Resultado {
 	}
 	
 	public void agregarCiudad( Ciudad c){
+		this.largo = this.largo + 1;
 		this.sitios = this.sitios + c.getSitiosTuristicos();
 		this.recorrido.agregar(c);
 	}

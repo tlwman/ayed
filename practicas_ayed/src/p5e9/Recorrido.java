@@ -39,13 +39,14 @@ public class Recorrido {
 		Resultado res = new Resultado();
 		
 		if ( a.getDatoRaiz() != null){
-			res.setLargo(1);
 			res.agregarCiudad( a.getDatoRaiz());
 
 			if ( a.getHijos().tamanio() != 0){
 				
 				ListaEnlazadaGenerica<ArbolGeneral<Ciudad>> hijos = a.getHijos();
-				Resultado mejor = new Resultado( Integer.MAX_VALUE, Integer.MIN_VALUE );
+				Resultado mejor = new Resultado();
+				mejor.setLargo(Integer.MAX_VALUE);
+				mejor.setSitios(Integer.MIN_VALUE);
 				
 				hijos.comenzar();
 				while ( !hijos.fin() ){
