@@ -1,14 +1,13 @@
 package p6e2;
 
 import utiles.Heap;
-import java.util.*;
 
 public class TestHeap {
 
 	public static void main(String args[]){
-		
-		Heap<Integer> cola = new Heap<Integer>();
-		Scanner sc = new Scanner(System.in);
+		Integer a[] = {5, 8, 12, 9 ,7, 10, 21,	6 ,8, 14 ,4};
+		Heap<Integer> cola = new Heap<Integer>(a);
+		/*Scanner sc = new Scanner(System.in);
 		
 		String s = sc.next();
 		
@@ -16,13 +15,14 @@ public class TestHeap {
 			cola.agregar(Integer.valueOf(s));
 			s = sc.next();
 		}
+		*/
+		cola.dump();
 		
 		while (!cola.esVacia()){
-			int n = cola.eliminar();
+			Integer n = cola.eliminar();
 			System.out.println("Descolando: "+n);
 		}
 	
-		sc.close();
-		
+		//sc.close();
 	}
 }

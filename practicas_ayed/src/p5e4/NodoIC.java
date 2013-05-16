@@ -10,8 +10,8 @@ public class NodoIC {
 		this.dim = dim;
 	}
 
-	public boolean isColor() {
-		return color;
+	public boolean isColor( boolean color) {
+		return color == this.color;
 	}
 
 	public void setColor(boolean color) {
