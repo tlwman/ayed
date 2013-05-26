@@ -39,7 +39,7 @@ public class QuadTree extends ArbolGeneral<NodoIC> {
 		if ( this.getDatoRaiz() != null ){
 				
 			if ( this.getHijos().esVacia() ){
-				if ( this.getDatoRaiz().isColor() == color ){
+				if ( this.getDatoRaiz().isColor(color) ){
 					int sup = this.getDatoRaiz().getDim();
 					System.out.println(sup*sup+" pixels in "+color );
 					return sup * sup;	
@@ -51,7 +51,7 @@ public class QuadTree extends ArbolGeneral<NodoIC> {
 				while (!hs.fin()){
 					QuadTree aux = new QuadTree( hs.elemento().getDatoRaiz() );
 					
-					if (aux.getDatoRaiz().isColor() == color){
+					if (aux.getDatoRaiz().isColor(color) ){
 						total = total + aux.pixelsIn(color);
 					}
 					hs.proximo();
