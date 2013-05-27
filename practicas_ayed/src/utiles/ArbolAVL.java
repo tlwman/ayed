@@ -91,11 +91,10 @@ public class ArbolAVL<T extends Comparable<T>> {
 					else{
 						this.getHijoIzquierdo().agregar(dato);
 					}
-					
+					/*
 					if (this.getHijoIzquierdo().getAltura() > this.getHijoDerecho().getAltura()){
 						this.getRaiz().setAltura( this.getRaiz().getAltura() + 1);
-					}					
-					
+					}	*/				
 				}
 				else{
 
@@ -105,13 +104,42 @@ public class ArbolAVL<T extends Comparable<T>> {
 					else{
 						this.getHijoDerecho().agregar(dato);
 					}
-
+					/*
 					if (this.getHijoDerecho().getAltura() > this.getHijoIzquierdo().getAltura()){
 						this.getRaiz().setAltura( this.getRaiz().getAltura() + 1);
-					}										
-					
+					}		*/								
 				}
+				this.balancear();
+				this.raiz.actAltura();
 			}
+		}
+	}
+	
+	private void balancear(){
+		ArbolAVL<T> hi = this.getHijoIzquierdo();
+		ArbolAVL<T> hd = this.getHijoDerecho();
+		int dif = hi.getAltura() - hd.getAltura();
+		//System.out.println(hi.getAltura()+" - "+hd.getAltura()+" = "+dif);
+		
+		if (dif == -2){
+			if (hd.getHijoDerecho().getAltura() > hd.getHijoIzquierdo().getAltura()){
+				System.out.println("RSD "+this.getDatoRaiz());
+				this.rotacionSimpleDch(this.getRaiz());
+			}
+			else{
+				System.out.println("RDD "+this.getDatoRaiz());
+				this.rotacionDobleDch(this.getRaiz());
+			}
+		}
+		else if (dif == 2){
+			if (hi.getHijoIzquierdo().getAltura() > hi.getHijoDerecho().getAltura()){
+				System.out.println("RSI "+this.getDatoRaiz());
+				this.rotacionSimpleIzq(this.getRaiz());
+			}
+			else{
+				System.out.println("RDI "+this.getDatoRaiz());
+				this.rotacionDobleIzq(this.getRaiz());
+			}		
 		}
 	}
 	
@@ -126,10 +154,14 @@ public class ArbolAVL<T extends Comparable<T>> {
 		
 		if (this.raiz.getDato().compareTo(dato) < 0){
 			this.raiz.setHijoDerecho( hd.reemplazar(dato) );
+			this.raiz.actAltura();
+			this.balancear();
 			return this.raiz;
 		}
 		else if (this.raiz.getDato().compareTo(dato) > 0){
 			this.raiz.setHijoIzquierdo( hi.reemplazar(dato) );
+			this.raiz.actAltura();
+			this.balancear();
 			return this.raiz;
 		}
 		else{
@@ -178,7 +210,57 @@ public class ArbolAVL<T extends Comparable<T>> {
 		return (this.raiz == null)? -1 : this.raiz.getAltura();
 	}
 	
-	private void rotacionSimpleIzq(){
+	private void rotacionSimpleIzq(NodoAVL<T> nodo){
+		NodoAVL<T> aux = new NodoAVL<T>(nodo.getDato());
+		aux.setHijoDerecho(nodo.getHijoDerecho());
+		aux.setHijoIzquierdo(nodo.getHijoIzquierdo().getHijoDerecho());
 		
+		nodo.setHijoDerecho(aux);
+		nodo.setDato(nodo.getHijoIzquierdo().getDato());
+		nodo.setAltura(nodo.getHijoIzquierdo().getAltura());
+		nodo.setHijoIzquierdo(nodo.getHijoIzquierdo().getHijoIzquierdo());
+
+		nodo.actAltura();
+		nodo.getHijoDerecho().actAltura();
+	}
+	
+	private void rotacionSimpleDch(NodoAVL<T> nodo){
+		NodoAVL<T> aux = new NodoAVL<T>(nodo.getDato());
+		aux.setHijoIzquierdo(nodo.getHijoIzquierdo());
+		aux.setHijoDerecho(nodo.getHijoDerecho().getHijoIzquierdo());
+		aux.setAltura(nodo.getAltura()-1);
+		
+		nodo.setHijoIzquierdo(aux);
+		nodo.setDato(nodo.getHijoDerecho().getDato());
+		nodo.setHijoDerecho(nodo.getHijoDerecho().getHijoDerecho());
+
+		nodo.actAltura();
+		nodo.getHijoIzquierdo().actAltura();
+	}
+	
+	private void rotacionDobleIzq(NodoAVL<T> nodo){
+		rotacionSimpleDch(nodo.getHijoIzquierdo());
+		rotacionSimpleIzq(nodo);
+	}
+	
+	private void rotacionDobleDch(NodoAVL<T> nodo){
+		rotacionSimpleIzq(nodo.getHijoDerecho());
+		rotacionSimpleDch(nodo);
+	}
+	
+	public int cantidadDeNodos(){
+		if (this.raiz != null){
+			return 1 + this.getHijoIzquierdo().cantidadDeNodos() + this.getHijoDerecho().cantidadDeNodos();
+		}
+		else{
+			return 0;
+		}
+	}
+	
+	public boolean esMinimal(){
+		
+		int minNodos = (int) Math.pow(2, (this.getAltura()/2+1));
+		
+		return (this.cantidadDeNodos()-1) < minNodos;
 	}
 }

@@ -37,4 +37,10 @@ public class NodoAVL <T>{
 	public void setAltura(int altura) {
 		this.altura = altura;
 	}
+	public void actAltura() {
+		int ai = (this.hijoIzquierdo != null)? this.hijoIzquierdo.altura : -1;
+		int ad = (this.hijoDerecho != null)? this.hijoDerecho.altura : -1;
+		
+		this.altura = 1 + ((ai > ad)? ai : ad);
+	}
 }
